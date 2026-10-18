@@ -15,7 +15,6 @@ An end-to-end, edge-optimized deep learning pipeline designed for rural Primary 
 - [Clinical Motivation & Research Challenges](#-clinical-motivation--research-challenges)
 - [System Architecture (8 Stages)](#-system-architecture-8-stages)
 - [Public Datasets & Direct Access Links](#-public-datasets--direct-access-links)
-- [Pretrained Weights & Google Drive Artifacts](#-pretrained-weights--google-drive-artifacts)
 - [Empirical Benchmark Results](#-empirical-benchmark-results)
 - [Point-of-Care Explainability (HiResCAM)](#-point-of-care-explainability-hirescam)
 - [Repository Structure](#-repository-structure)
@@ -88,15 +87,6 @@ FedScreen is trained and validated on three benchmark hematological image datase
 *Data Hygiene & De-duplication*:
 - All datasets undergo **SHA-256 cryptographic hash de-duplication** (test > val > train priority), removing 72 duplicate leukemia and 1,232 AneRBC images across splits.
 - Patient-level splitting guarantees **zero group overlap** between training, validation, and held-out test sets. For leukemia, official patient-disjoint `fold_0` (3,527 images) is strictly held out.
-
----
-
-## ☁️ Pretrained Weights & Google Drive Artifacts
-
-Pretrained model checkpoints, feature representations, metadata records, and cache archives are hosted on open-access Google Drive repositories:
-
-* 📁 **[FedScreen Project Assets & Preprocessing Caches](https://drive.google.com/drive/folders/1AyN3dq7KMOiANSZJM1yjv1z4JF-B33qp?usp=sharing)**: Contains dataset metadata, unified group splits (`fedscreen_metadata_v2.csv`), and standalone teacher checkpoints.
-* 📁 **[FedScreen Final Models & Evaluation Deliverables](https://drive.google.com/drive/folders/1VeV8l4pMHl0fdksLzNPmC-tTPy5X_J4z?usp=sharing)**: Contains the finalized Federated Learning global model (`fedscreen_fl_FINAL.pth`), dynamic INT8 compressed weights (`fedscreen_int8.pt`), and calibration metadata (`fedscreen_meta.json`).
 
 ---
 
