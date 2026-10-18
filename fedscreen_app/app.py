@@ -214,8 +214,8 @@ cols = st.columns(4)
 for c, t in zip(cols[:3], fm.TASKS):
     m = META["metrics"][t]
     c.markdown(f"""<div class="card"><h4>{INFO[t]['icon']} {INFO[t]['title']}</h4>
-      <span class="big">{m['macro_f1_at_thr']*100:.1f}%</span> <span class="sub">Macro-F1</span><br>
-      <span class="sub">AUC <b>{m['auc']:.3f}</b> | Accuracy <b>{m['accuracy']*100:.1f}%</b> | {INFO[t]['data']}</span><br><span class="sub">&nbsp;</span></div>""", unsafe_allow_html=True)
+      <span class="big">{m['auc']*100:.1f}%</span> <span class="sub">AUC</span><br>
+      <span class="sub">Accuracy <b>{m['accuracy']*100:.1f}%</b> | Macro-F1 <b>{m['macro_f1_at_thr']*100:.1f}%</b> | {INFO[t]['data']}</span><br><span class="sub">&nbsp;</span></div>""", unsafe_allow_html=True)
 cols[3].markdown(f"""<div class="card"><h4>⚡ Edge Deployment</h4><span class="big">{META['size_int8']:.0f} MB</span> <span class="sub">INT8 model</span><br>
   <span class="sub"><b>{META['lat_int8']:.0f} ms</b> / image on CPU | {META['params']:.1f} M params | one shared backbone</span></div>""", unsafe_allow_html=True)
 
