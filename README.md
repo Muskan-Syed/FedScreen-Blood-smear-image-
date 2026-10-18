@@ -165,7 +165,9 @@ FedScreen/
 ├── FedScreen_final_architecture.pdf     # Full vector infographic architecture poster
 ├── notebooks/
 │   ├── 01_data_pipeline.ipynb          # Clean leakage-safe data prep, deduplication & splitting
-│   └── README.md                       # Description of upcoming notebook additions
+│   ├── 02_final_mtl_and_app.ipynb      # MTL training, FedProx simulation, INT8 quantization & app deployment
+│   ├── final.ipynb                     # Master 50-stage unified end-to-end reproducible pipeline
+│   └── README.md                       # Comprehensive notebook guide
 ├── fedscreen_app/
 │   ├── app.py                          # Streamlit clinical dashboard with auto-router & referral gate
 │   ├── fedscreen_model.py              # ConvNeXt + CBAM + HiResCAM + Turbo contours
@@ -212,7 +214,7 @@ Open your browser at `http://localhost:8501`.
 To execute the data preparation pipeline from scratch:
 1. Download the raw datasets into `dataset/` using the [official links](#-public-datasets--direct-access-links).
 2. Open and run [`notebooks/01_data_pipeline.ipynb`](notebooks/01_data_pipeline.ipynb) to audit metadata, generate cryptographic SHA-256 de-duplications, and construct patient-isolated train/val/test splits.
-3. To train the multi-task network or run federated client rounds, execute the upcoming companion notebooks (`02_final_mtl_and_app.ipynb` / `final.ipynb`).
+3. Run [`notebooks/02_final_mtl_and_app.ipynb`](notebooks/02_final_mtl_and_app.ipynb) or the master [`notebooks/final.ipynb`](notebooks/final.ipynb) to execute multi-task joint optimization, FedProx client simulation, edge dynamic INT8 quantization, and live Streamlit serving.
 
 ---
 
