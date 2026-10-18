@@ -1,0 +1,30 @@
+{
+  "thresholds": {
+    "malaria": 0.5,
+    "anemia": 0.45,
+    "leukemia": 0.5
+  },
+  "metrics": {
+    "malaria": {
+      "macro_f1_at_thr": 0.9665,
+      "auc": 0.993,
+      "accuracy": 0.9702
+    },
+    "anemia": {
+      "macro_f1_at_thr": 0.8338,
+      "auc": 0.9214,
+      "accuracy": 0.8406
+    },
+    "leukemia": {
+      "macro_f1_at_thr": 0.8151,
+      "auc": 0.9516,
+      "accuracy": 0.9093
+    }
+  },
+  "size_fp32": 114.6,
+  "size_int8": 35.2,
+  "lat_fp32": 43.0,
+  "lat_int8": 29.0,
+  "lat_cam": 236.0,
+  "params": 28.6
+}

@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+build/
+dist/
+
+# Large model checkpoints (>100MB violate GitHub limits)
+*.pth
+*.pt
+!fedscreen_app/fedscreen_int8.pt
+
+# Large image datasets & pre-processed caches
+dataset/
+norm192/
+norm_v2/
+normalized/
+caches_backup/
+*.tar
+*.tar.gz
+*.zip
+*.npy
+*.npz
+!fedscreen_app/router.npz
+
+# Jupyter Notebook checkpoints & autosaves
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Streamlit temporary data
+.streamlit/
