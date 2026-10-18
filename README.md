@@ -217,9 +217,9 @@ To execute the data preparation pipeline from scratch:
 3. Run [`notebooks/02_final_mtl_and_app.ipynb`](notebooks/02_final_mtl_and_app.ipynb) or the master [`notebooks/final.ipynb`](notebooks/final.ipynb) to execute multi-task joint optimization, FedProx client simulation, edge dynamic INT8 quantization, and live Streamlit serving.
 
 ---
+## USER INTERFACE
 
  **Live Interactive Web App**: https://syed-muskan-fedscreen-project.streamlit.app/
-
 
 ---
 
