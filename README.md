@@ -13,6 +13,7 @@ An end-to-end, edge-optimized deep learning pipeline designed for rural Primary 
 
 ## 📑 Table of Contents
 - [Clinical Motivation & Research Challenges](#-clinical-motivation--research-challenges)
+- [Project Proposal & Clinical Pilot Plan](#-project-proposal--clinical-pilot-plan)
 - [System Architecture (8 Stages)](#-system-architecture-8-stages)
 - [Public Datasets & Direct Access Links](#-public-datasets--direct-access-links)
 - [Empirical Benchmark Results](#-empirical-benchmark-results)
@@ -32,6 +33,19 @@ In rural and remote Primary Health Centres (PHCs) across resource-limited region
 3. **Privacy & Low-Bandwidth Constraints**: Patient blood smear micrographs cannot be uploaded to centralized cloud servers due to clinical privacy compliance and unreliable rural telecommunications.
 
 **FedScreen resolves these challenges** by training a single compact multi-task attention network with Kendall homoscedastic uncertainty weighting and Knowledge Distillation, federating model updates across decentralized PHCs using FedProx ($\mu = 0.01$), compressing the model to **35.2 MB (dynamic INT8)** with **29 ms CPU latency**, and incorporating a **specimen auto-router** and **pathologist referral gate (<85% confidence)**.
+
+---
+
+## 📋 Project Proposal & Clinical Pilot Plan
+
+For the complete clinical project proposal, scope, pilot phases, and safety safeguards, refer to:
+- 📄 **Markdown Document**: [`docs/PROJECT_PROPOSAL.md`](docs/PROJECT_PROPOSAL.md)
+- 📝 **Original Word Document**: [`docs/FedScreen_Project_Proposal.docx`](docs/FedScreen_Project_Proposal.docx)
+
+### Summary of Proposed Pilot Phases:
+1. **Phase 1 (Close Known Gaps)**: Re-test federated leukemia at calibrated threshold; shrink model toward 25 MB; validate specimen router on unseen patients.
+2. **Phase 2 (Real Federation)**: Transition from five simulated local client nodes to 2–3 real clinic servers exchanging FedProx updates without raw data transfers.
+3. **Phase 3 (Supervised Pilot)**: Deploy side-by-side with routine blood smear microscopy in rural PHCs under certified pathologist sign-off and ethical oversight.
 
 ---
 
@@ -144,6 +158,8 @@ FedScreen/
 │   ├── router.npz                      # 100% accurate specimen auto-routing classifier weights
 │   └── samples/                        # Curated blood smear demonstration crops
 └── docs/
+    ├── PROJECT_PROPOSAL.md             # Formal clinical project proposal & pilot deployment roadmap
+    ├── FedScreen_Project_Proposal.docx # Original proposal document
     ├── benchmark_results.md            # Comprehensive multi-task & FL evaluation report
     └── FedScreen_final_architecture.pdf # Archived copy of the architecture poster
 ```
