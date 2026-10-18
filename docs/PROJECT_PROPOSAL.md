@@ -6,7 +6,7 @@
 ---
 
 ## Summary
-**FedScreen** is one lightweight AI model that helps screen blood-cell images for malaria, anemia and leukemia, and is built so clinics can improve it together without ever sharing patient images. On held-out, patient-disjoint test sets it reaches macro-F1 of **0.967 for malaria**, **0.835 for anemia**, and **0.892 for leukemia**, and a working clinician-facing app already runs on an ordinary CPU in about **29 ms per image**. 
+**FedScreen** is one lightweight AI model that helps screen blood-cell images for malaria, anemia and leukemia, and is built so clinics can improve it together without ever sharing patient images. On held-out, patient-disjoint test sets it reaches macro-F1 of **0.967 for malaria**, **0.835 for anemia**, and **0.892 for leukemia** (centralized; **0.815** under federated training), and a working clinician-facing app already runs on an ordinary CPU in about **29 ms per image**. 
 
 We are asking for support to move from a validated prototype to a small, supervised pilot at primary health centres (PHCs).
 
@@ -24,24 +24,27 @@ In many primary health centres, a blood smear is read by one overstretched techn
 ## Our Approach
 FedScreen trains one shared **ConvNeXt-Tiny backbone** (28.6 M parameters) with three small attention heads, one per disease. A router first recognises the specimen type, so only the matching head runs.
 
-- **Clean, leakage-safe data:** Three public datasets (~76,000 cell images) split strictly by patient, de-duplicated by perceptual image hash, and evaluated on an unseen laboratory for leukemia (C-NMC 30-donor deduplicated fold).
+- **Clean, leakage-safe data:** Three public datasets (~76,000 cell images) split strictly by patient, de-duplicated by image hash, and tested on an unseen laboratory for leukemia (C-NMC 30-donor deduplicated fold).
 - **Specialist teachers:** One model per disease is trained first, with stain-robust augmentation.
 - **Joint model:** The shared model learns from all three through uncertainty-weighted loss and knowledge distillation, so no disease drowns out the others.
-- **Federated training:** Clinics train locally and share only model updates (FedProx), never patient images.
-- **Edge app:** INT8 compression, HiResCAM / Grad-CAM++ heat-map explanations with Canny contours, and a confidence gate that refers uncertain cases to a pathologist.
+- **Federated training:** Clinics train locally and share only model updates (FedProx), never images.
+- **Edge app:** INT8 compression, heat-map explanations and a confidence gate that refers uncertain cases to a pathologist.
 
 ---
 
 ## What Exists Today
-Results on held-out, patient-disjoint test data (leukemia: an unseen laboratory). The federated run simulated five virtual health centres.
+Results on held-out, patient-disjoint test data (leukemia: an unseen lab). The federated run simulated five virtual health centres.
 
 | Disease | Centralized F1 | AUC | Federated F1 | What we learned |
 | :--- | :---: | :---: | :---: | :--- |
 | **Malaria** | 0.967 | 0.993 | 0.967 | Federation cost nothing |
 | **Anemia** | 0.835 | 0.922 | 0.834 | Hardest task; sharing one backbone cost 0.028 F1 versus its specialist |
-| **Leukemia** | 0.892 | 0.950 | 0.815 | Largest federated gap; needs re-checking at the same tuned threshold |
+| **Leukemia** | 0.892 | 0.950 | 0.815 | Largest federated gap: 0.892 centralized (fixed 0.50 cut-off) vs 0.815 federated (FedProx, five virtual centres); to be re-checked at the same 0.50 threshold |
 
-The prototype app uploads an image, identifies the specimen, shows the verdict with an attention heat-map, and refers anything below 85% confidence to a pathologist. The model compresses from 114.6 MB to 35.2 MB and runs in 29 ms per image on CPU.
+> [!NOTE]
+> **Note on leukemia:** 0.892 is the centralized multi-task result at the fixed 0.50 cut-off (AUC 0.950). An earlier 0.575 figure came from an over-high validation-tuned threshold (0.783) and is discarded. 0.815 is the federated result under decentralized FedProx training across five virtual centres.
+
+The prototype app uploads an image, identifies the specimen, shows the verdict with a heat-map, and refers anything below 85% confidence to a pathologist. The model compresses from 114.6 MB to 35.2 MB and runs in 29 ms per image on CPU.
 
 ---
 
@@ -57,8 +60,8 @@ The prototype app uploads an image, identifies the specimen, shows the verdict w
 | **3. Supervised pilot** | Run the app beside routine smear reading, with pathologist sign-off and ethics approval | Agreement with pathologists measured on real, local slides |
 
 ### Limits We Are Open About
-- **Size Target:** The 25 MB size target is not yet met (currently 35.2 MB because dynamic quantization applies to `nn.Linear` while CBAM convs remain FP32).
-- **Federated Leukemia Evaluation:** The leukemia federated result is indicative until re-evaluated under patient-disjoint fold_0.
+- **Size Target:** The 25 MB size target is not yet met (currently 35.2 MB; dynamic quantization hits `nn.Linear` while CBAM convs remain FP32).
+- **Federated Leukemia Evaluation:** The leukemia federated result (0.815) is indicative until re-evaluated at the fixed 0.50 threshold.
 - **Specimen Router Split:** The specimen router scored 100% on a random split that was not patient-disjoint (primarily serves as an automated safety gate).
 - **Public Data:** All data so far is public, so performance at a new clinic is unproven until field validation.
 - **Disciplined Iteration:** Early mistakes (data leakage, a failed threshold, collapsed multi-task training) were found, documented and fixed, and that same discipline will guide the pilot.

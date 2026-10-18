@@ -14,6 +14,7 @@ An end-to-end, edge-optimized deep learning pipeline designed for rural Primary 
 ## 📑 Table of Contents
 - [Clinical Motivation & Research Challenges](#-clinical-motivation--research-challenges)
 - [Project Proposal & Clinical Pilot Plan](#-project-proposal--clinical-pilot-plan)
+- [Future Work: Detecting Multiple Diseases](#-future-work-detecting-multiple-diseases)
 - [System Architecture (8 Stages)](#-system-architecture-8-stages)
 - [Public Datasets & Direct Access Links](#-public-datasets--direct-access-links)
 - [Empirical Benchmark Results](#-empirical-benchmark-results)
@@ -46,6 +47,20 @@ For the complete clinical project proposal, scope, pilot phases, and safety safe
 1. **Phase 1 (Close Known Gaps)**: Re-test federated leukemia at calibrated threshold; shrink model toward 25 MB; validate specimen router on unseen patients.
 2. **Phase 2 (Real Federation)**: Transition from five simulated local client nodes to 2–3 real clinic servers exchanging FedProx updates without raw data transfers.
 3. **Phase 3 (Supervised Pilot)**: Deploy side-by-side with routine blood smear microscopy in rural PHCs under certified pathologist sign-off and ethical oversight.
+
+---
+
+## 🔮 Future Work: Detecting Multiple Diseases
+
+For the full architectural expansion roadmap to handle co-morbidities and multi-disease screening per patient, see:
+- 📄 **Markdown Specification**: [`docs/FUTURE_WORK.md`](docs/FUTURE_WORK.md)
+- 📑 **Original PDF Document**: [`docs/FedScreen_Future_Work.pdf`](docs/FedScreen_Future_Work.pdf)
+
+### Key Extensions in the Future Work Roadmap:
+1. **Patient-Level Multi-Image Aggregation**: Run the router and heads across multiple smear crops from one patient and compile a unified co-morbidity report (e.g., *Malaria Positive + Anemia Positive*).
+2. **Multi-Label Independent Sigmoid Heads**: Transition from mutually-exclusive 2-way softmax outputs to independent BCE sigmoid classifiers.
+3. **Whole-Slide Attention Pooling**: Aggregate dozens of field crops with attention weights to represent the entire slide.
+4. **Epidemiological Co-Morbidity Priors**: Calibrate joint probabilities using clinical correlation priors (e.g. malaria-induced hemolytic anemia).
 
 ---
 
@@ -160,6 +175,8 @@ FedScreen/
 └── docs/
     ├── PROJECT_PROPOSAL.md             # Formal clinical project proposal & pilot deployment roadmap
     ├── FedScreen_Project_Proposal.docx # Original proposal document
+    ├── FUTURE_WORK.md                  # Roadmap for multi-disease & co-morbidity detection
+    ├── FedScreen_Future_Work.pdf       # Original future work document
     ├── benchmark_results.md            # Comprehensive multi-task & FL evaluation report
     └── FedScreen_final_architecture.pdf # Archived copy of the architecture poster
 ```
