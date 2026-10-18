@@ -7,7 +7,31 @@ warnings.filterwarnings("ignore", message="The given NumPy array is not writable
 
 APP = os.path.dirname(os.path.abspath(__file__))
 st.set_page_config(page_title="FedScreen — Point-of-Care Blood Smear Screening", page_icon="🩸", layout="wide")
+import streamlit as st
 
+# 1. Page Configuration
+st.set_page_config(page_title="AI App", layout="wide")
+
+# 2. Inject CSS to completely hide header, toolbar, and footer
+hide_ui_elements = """
+    <style>
+    /* Hide top header bar, Fork, and GitHub icons */
+    header {visibility: hidden; display: none !important; height: 0px;}
+    [data-testid="stHeader"] {visibility: hidden; display: none !important;}
+    [data-testid="stToolbar"] {visibility: hidden; display: none !important;}
+    
+    /* Hide bottom footer & status widgets */
+    footer {visibility: hidden; display: none !important;}
+    [data-testid="stStatusWidget"] {visibility: hidden; display: none !important;}
+    
+    /* Remove unnecessary top whitespace */
+    .block-container {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    </style>
+"""
+st.markdown(hide_ui_elements, unsafe_allow_html=True)
 # ----------------------------------------------------------------- styling
 bubbles = ""
 for i, (sz, left, dur, delay) in enumerate([(120, 5, 22, 0), (70, 18, 17, 3), (160, 32, 26, 6), (60, 47, 15, 1),
